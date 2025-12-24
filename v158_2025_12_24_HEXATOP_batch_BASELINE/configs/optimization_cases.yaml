@@ -1,0 +1,23 @@
+# FILE: .\configs\optimization_cases.yaml
+# ==============================================================================
+# OPTIMIZATION CASES ORCHESTRATOR
+# ==============================================================================
+# This file defines a sequence of simulations to run. 
+# It merges a physics definition with a solver definition for each run.
+
+batch_queue:
+  # ----------------------------------------------------------------------------
+  # Run 1: Standard RTX configuration
+  # ----------------------------------------------------------------------------
+  - job_name: "Case_3"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings_3.yaml"
+
+  - job_name: "Case_2"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings_2.yaml"
+
+  - job_name: "Case_1"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings_1.yaml"
+

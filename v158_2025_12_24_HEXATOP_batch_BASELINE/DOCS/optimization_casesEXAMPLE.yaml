@@ -1,0 +1,47 @@
+# FILE: .\configs\optimization_cases.yaml
+# ==============================================================================
+# OPTIMIZATION CASES ORCHESTRATOR
+# ==============================================================================
+# This file defines a sequence of simulations to run. 
+# It merges a physics definition with a solver definition for each run.
+
+batch_queue:
+  # ----------------------------------------------------------------------------
+  # Run 1: Standard RTX configuration
+  # ----------------------------------------------------------------------------
+  - job_name: "Baseline_RTX"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings.yaml"
+    
+    # Overrides (Optional): Modify specific keys after merging
+    overrides:
+      output_settings:
+        log_filename: "log_run1_baseline.txt"
+
+  # ----------------------------------------------------------------------------
+  # Run 2: High Precision Test
+  # ----------------------------------------------------------------------------
+  - job_name: "HighPrecision_Double"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings.yaml"
+    
+    overrides:
+      gpu_profile: "V100" # Forces Double Precision
+      solver_parameters:
+        tolerance: 1.0e-9
+      output_settings:
+        log_filename: "log_run2_high_precision.txt"
+
+  # ----------------------------------------------------------------------------
+  # Run 3: Parameter Sweep - Stricter Stress Constraint
+  # ----------------------------------------------------------------------------
+  - job_name: "Strict_Stress_Limit"
+    domain_config: "./configs/domain_definitions.yaml"
+    solver_config: "./configs/solver_settings.yaml"
+    
+    overrides:
+      # Material properties now house the stress limit
+      material:
+        l1_stress_allowable: 0.5 
+      output_settings:
+        log_filename: "log_run3_strict_stress.txt"

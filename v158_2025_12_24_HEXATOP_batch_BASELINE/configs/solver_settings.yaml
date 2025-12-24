@@ -1,0 +1,89 @@
+# FILE: .\configs\solver_settings.yaml
+# ==============================================================================
+# PART 2: NUMERICAL SOLVER & OPTIMIZATION SETTINGS
+# ==============================================================================
+# This file contains the "How": Solver precision, filtering, optimization loop.
+
+# ------------------------------------------------------------------------------
+# HARDWARE PROFILE
+# ------------------------------------------------------------------------------
+gpu_profile: "RTX" # Options: RTX, V100, A100, H100, AUTO
+
+# ------------------------------------------------------------------------------
+# RESTART CONFIGURATION
+# ------------------------------------------------------------------------------
+restart_configuration:
+  enable_restart: false
+  file_path: ""
+
+# ------------------------------------------------------------------------------
+# MESH & ADAPTIVITY SETTINGS
+# ------------------------------------------------------------------------------
+mesh_settings:
+  # Initial background grid resolution (RENAMED)
+  initial_ground_mesh_size: 3_000_000
+
+  # Adaptive Mesh Refinement (AMR) targets (RENAMED)
+  final_target_of_active_elements: 60_000_000
+  
+  max_growth_rate: 1.1
+  nominal_refinement_threshold: 0.9
+  exponent_for_refinement_schedule: 2.0
+  max_background_elements: 500_000_000
+  gpu_solver_safety_factor: 0.95
+
+# ------------------------------------------------------------------------------
+# OPTIMIZATION LOOP
+# ------------------------------------------------------------------------------
+number_of_iterations: 40
+hard_stop_after_iteration: 250
+
+optimization_parameters:
+  density_update_method: "hard"
+  min_density: 0.0001
+  density_clamp_max: 1
+  
+  # Culling schedule
+  final_density_threshold: 0.90
+  exponent_for_cutoff_schedule: 1.5 
+  max_culling_ratio: 0.2
+
+  # Filter Radius Parameters
+  minimum_feature_size_physical: 0.1
+  minimum_feature_size_elements: 1.0
+  radius_max_multiplier: 1.0
+  radius_min_multiplier: 1
+  radius_decay_exponent: 1.8
+  constraint_constant: 0.25
+
+# ------------------------------------------------------------------------------
+# SOLVER PARAMETERS
+# ------------------------------------------------------------------------------
+solver_parameters:
+  solver_type: gpu              
+  preconditioner: "multigrid"
+  tolerance: 1.e-6 
+  max_iterations: 30000 
+  diagonal_shift_factor: 1.e-7 
+  stagnation_tolerance: 1.0e-3
+  max_shift_attempts: 7
+  shift_multiplier: 10.0
+  gpu_method: krylov        
+  krylov_solver: cg              
+
+# ------------------------------------------------------------------------------
+# OUTPUT SETTINGS
+# ------------------------------------------------------------------------------
+output_settings:
+  export_frequency: 1       
+  save_bin_frequency: 1     
+  save_STL_frequency: 10     
+  save_VTK_frequency: 1     
+  save_principal_stress_vectors: no
+  log_filename: simulation_log.txt
+  iso_surface_threshold: 0.01
+  stl_subdivision_level: 2       
+  stl_smoothing_passes: 2        
+  stl_mesh_smoothing_iters: 6    
+  maximum_cells_in_binary_output: 25_000_000
+  stl_target_triangle_count: 95000

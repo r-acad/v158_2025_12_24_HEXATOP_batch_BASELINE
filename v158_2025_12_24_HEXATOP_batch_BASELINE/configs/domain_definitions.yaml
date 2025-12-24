@@ -1,0 +1,84 @@
+# FILE: .\configs\domain_definitions.yaml
+# ==============================================================================
+# PART 1: PHYSICAL PROBLEM DEFINITION
+# ==============================================================================
+# This file contains the "What": Geometry, Loads, BCs, and Materials.
+
+# ------------------------------------------------------------------------------
+# GEOMETRY DEFINITION
+# ------------------------------------------------------------------------------
+geometry:
+  # Physical dimensions (meters)
+  length_x: 60
+  length_y: 20
+  length_z: 20
+  
+  # Geometric primitives (Design/Non-Design regions)
+  # Stiffness Ratio: 0=Void, >0=Solid/Stiffer, <0=Passive Thermal
+  sphere1:
+    type: sphere
+    center: [12.51, 28.49, 50]
+    diameter: 8
+    stiffness_ratio: 0   # Hole
+    
+  sphere2:
+    type: sphere
+    center: [60.38, -0.07, 50]
+    diameter: 4
+    stiffness_ratio: 10  # Stiff inclusion
+    
+  sphere3:
+    type: sphere
+    center: [34.29, 5, 50]
+    diameter: 4
+    stiffness_ratio: -10 # Passive thermal
+      
+  box1:
+    type: box
+    center: [28, 15, 50]
+    size: [1, 2, 3]
+    stiffness_ratio: 5
+      
+  box2:
+    type: box
+    center: [45.06, 8.95, 50]
+    size: [1, 4, 2]
+    stiffness_ratio: 0   # Void box
+
+# ------------------------------------------------------------------------------
+# BOUNDARY CONDITIONS
+# ------------------------------------------------------------------------------
+boundary_conditions:
+  - location: [0, ':', ':'] # Fix X=0 face
+    DoFs: [1, 2, 3]         # Fully fixed
+
+# ------------------------------------------------------------------------------
+# EXTERNAL FORCES
+# ------------------------------------------------------------------------------
+external_forces:
+  - name: Y10
+    location: [100%, 0, 0]
+    F: [0, 10, 0]
+    
+  - name: Z-10
+    location: [100%, 0, 50%]
+    F: [0, 0, -10]
+    
+  - name: Y20
+    location: [100%, 0, 100%]
+    F: [0, 20, 0]
+    
+  - name: Mid_Y20
+    location: [50%, 0, 50%]
+    F: [0, 15, 0]
+
+# ------------------------------------------------------------------------------
+# MATERIAL PROPERTIES
+# ------------------------------------------------------------------------------
+material:
+  E: 1                      # Young's Modulus
+  nu: 0.3                   # Poisson's Ratio
+  material_density: 0.001   # For self-weight
+  gravity_acceleration: 9.81
+  delta_temperature: 0.0
+  l1_stress_allowable: 1.5  # Target stress limit (Moved here)

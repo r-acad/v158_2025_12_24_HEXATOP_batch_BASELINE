@@ -1,0 +1,71 @@
+
+================================================================================
+CRASH REPORT [2025-12-24T13:13:08.277]
+================================================================================
+Stage: STL_EXPORT
+Iteration: 0
+Error: InterruptException()
+
+Stacktrace:
+InterruptException:
+Stacktrace:
+  [1] try_yieldto(undo::typeof(Base.ensure_rescheduled))
+    @ Base .\task.jl:1157
+  [2] wait()
+    @ Base .\task.jl:1229
+  [3] wait(c::Base.GenericCondition{SpinLock}; first::Bool)
+    @ Base .\condition.jl:141
+  [4] wait
+    @ .\condition.jl:136 [inlined]
+  [5] _wait(t::Task)
+    @ Base .\task.jl:312
+  [6] threading_run(fun::Main.HEXA.Postprocessing.var"#10#11"{Main.HEXA.Postprocessing.var"#12#13"{Array{Float32, 3}, Int64, Int64, Int64, Array{Float32, 3}, Int64, Int64, Int64, UnitRange{Int64}}}, static::Bool)
+    @ Base.Threads .\threadingconstructs.jl:191
+  [7] macro expansion
+    @ .\threadingconstructs.jl:213 [inlined]
+  [8] export_smooth_watertight_stl(density::Vector{Float32}, geom::@NamedTuple{nElem_x::Int64, nElem_y::Int64, nElem_z::Int64, dx::Float32, dy::Float32, dz::Float32, shapes::Vector{Any}, actual_elem_count::Int64, max_domain_dim::Float32}, threshold::Float32, filename::String; subdivision_level::Int64, smoothing_passes::Int64, mesh_smoothing_iters::Int64, target_triangle_count::Int64)
+    @ Main.HEXA.Postprocessing c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\IO\Postprocessing.jl:363
+  [9] export_iteration_results(iter::Int64, base_name::String, RESULTS_DIR::String, nodes::Matrix{Float32}, elements::Matrix{Int64}, U_full::Vector{Float32}, F::Vector{Float32}, bc_indicator::Matrix{Float32}, principal_field::Matrix{Float32}, vonmises_field::Vector{Float32}, full_stress_voigt::Matrix{Float32}, l1_stress_norm_field::Vector{Float32}, principal_max_dir_field::Matrix{Float32}, principal_min_dir_field::Matrix{Float32}, density::Vector{Float32}, E::Float32, geom::@NamedTuple{nElem_x::Int64, nElem_y::Int64, nElem_z::Int64, dx::Float32, dy::Float32, dz::Float32, shapes::Vector{Any}, actual_elem_count::Int64, max_domain_dim::Float32}; iso_threshold::Float32, current_radius::Float32, config::Dict{Any, Any}, save_bin::Bool, save_stl::Bool, save_vtk::Bool)
+    @ Main.HEXA.Postprocessing c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\IO\Postprocessing.jl:598
+ [10] _run_safe(current_config::Dict{Any, Any}, run_name::String)
+    @ Main.HEXA c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\Main.jl:606
+ [11] run_main(input_file::Nothing)
+    @ Main.HEXA c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\Main.jl:181
+ [12] bootstrap()
+    @ Main c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\Main.jl:642
+ [13] top-level scope
+    @ c:\00_HEXATOP\v157_additional_optimizations_for_large_models\src\Main.jl:645
+ [14] eval(m::Module, e::Any)
+    @ Core .\boot.jl:489
+ [15] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base .\loading.jl:2870
+ [16] include_string(m::Module, txt::String, fname::String)
+    @ Base .\loading.jl:2880
+ [17] inlineeval(m::Module, code::String, code_line::Int64, code_column::Int64, file::String; softscope::Bool)
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:271
+ [18] (::VSCodeServer.var"#repl_runcode_request##6#repl_runcode_request##7"{Bool, Bool, Bool, Module, String, Int64, Int64, String, VSCodeServer.ReplRunCodeRequestParams})()
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:181
+ [19] withpath(f::VSCodeServer.var"#repl_runcode_request##6#repl_runcode_request##7"{Bool, Bool, Bool, Module, String, Int64, Int64, String, VSCodeServer.ReplRunCodeRequestParams}, path::String)
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\repl.jl:278
+ [20] (::VSCodeServer.var"#repl_runcode_request##4#repl_runcode_request##5"{Bool, Bool, Bool, Module, String, Int64, Int64, String, VSCodeServer.ReplRunCodeRequestParams})()
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:179
+ [21] hideprompt(f::VSCodeServer.var"#repl_runcode_request##4#repl_runcode_request##5"{Bool, Bool, Bool, Module, String, Int64, Int64, String, VSCodeServer.ReplRunCodeRequestParams})
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\repl.jl:38
+ [22] #repl_runcode_request##2
+    @ c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:150 [inlined]
+ [23] with_logstate(f::VSCodeServer.var"#repl_runcode_request##2#repl_runcode_request##3"{Bool, Bool, Bool, Module, String, Int64, Int64, String, VSCodeServer.ReplRunCodeRequestParams}, logstate::Base.CoreLogging.LogState)
+    @ Base.CoreLogging .\logging\logging.jl:540
+ [24] with_logger
+    @ .\logging\logging.jl:651 [inlined]
+ [25] (::VSCodeServer.var"#repl_runcode_request##0#repl_runcode_request##1"{VSCodeServer.ReplRunCodeRequestParams})()
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:263
+ [26] (::VSCodeServer.var"#start_eval_backend##0#start_eval_backend##1")()
+    @ VSCodeServer c:\Users\USUARIO\.vscode\extensions\julialang.language-julia-1.167.2\scripts\packages\VSCodeServer\src\eval.jl:34
+
+System State:
+Hardware Profile:
+  CPU Threads: 32
+  System RAM:  113.72 GB Free / 127.95 GB Total
+  GPU Device:  NVIDIA GeForce RTX 3080 | VRAM: 7.77 GB Free / 10.0 GB Total
+  Julia Ver:   1.12.3
+================================================================================
